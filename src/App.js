@@ -36,6 +36,7 @@ function App() {
 	const { token , setToken } = useToken();
     let navigate = useNavigate();
 	if(!token) {
+        window.location.href = "./login";
 		navigate("/login",{replace:true});
 	}
     else {

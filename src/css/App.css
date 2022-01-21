@@ -28,11 +28,28 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.profile {
+  margin: 5rem;
+  border: 1px solid #3a3a3a;
+
+}
+.header {
+  padding:1rem;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #3a3a3a;
+}
+.body {
+  padding: 3rem;
+}
+
+#edit {
+  background-color: #2e9aff;
+  margin: 1rem;
+  padding:0.5rem;
+  width: 10rem;
+  border: none;
+  color:white;
+  font-size: 1.5rem;
+  border-radius: 5px;
 }

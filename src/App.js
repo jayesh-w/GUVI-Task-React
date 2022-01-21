@@ -1,24 +1,85 @@
-import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
+import  Navbar  from './components/Navbar.js';
+import { Link } from 'react-router-dom';
+import Login from './components/Login';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useToken from './useToken.js';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+async function getDetails(get) {
+ return fetch('https://mysterious-harbor-20936.herokuapp.com/api/get-user', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify(get)
+ })
+   .then(data => {return data.json()})
+}
+
+const notify = (message) => toast(message);
 
 function App() {
+    let navigate = useNavigate();
+    const [username,setUsername] = useState();
+    const [email,setEmail] = useState();
+    const [gender,setGender] = useState();
+    const [dob,setDob] = useState();
+    const [blood,setBlood] = useState();
+    const [contact,setContact] = useState();
+    const [address,setAddress] = useState();
+    const [age,setAge] = useState();
+
+	const { token , setToken } = useToken();
+
+    
+	if(!token) {
+		navigate("/login",{replace:true});
+	}
+    else {
+        const get = {token : JSON.parse(token)};
+        getDetails(get)
+        .then((data) => {
+            setUsername(data.username);
+            setEmail(data.email);
+            setDob(data.details.dob);
+            setBlood(data.details.blood);
+            setContact(data.details.contact);
+            setAddress(data.details.address);
+            setGender(data.details.gender);
+            setAge(data.details.age);
+        })
+        .catch(err => {console.log(err)});
+        
+    }
+    const link = "edit/?gender="+gender+"&contact="+contact+"&dob="+dob+"&blood="+blood+"&age="+age+"&address="+address;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  	<div id="parent">
+    <Navbar username="GUVI Task" />
+
+    <div className="profile">
+    	<div className="header">
+    		<h1>Profile</h1>
+
+    		<button id="edit"><Link to={ link } >Edit</Link></button>
+    	</div>
+
+    	<div className="body">
+    		<p>Username : { username } </p>
+            <p>Age : { age } </p>
+    		<p>Email : { email }</p>
+    		<p>Gender : { gender }</p>
+    		<p>DOB : { dob }</p>
+    		<p>Blood : { blood }</p>
+    		<p>Contact : { contact }</p>
+    		<p>Address : { address }</p>
+    	</div>
     </div>
+    <ToastContainer />
+    </div>
+
   );
 }
 

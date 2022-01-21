@@ -22,7 +22,8 @@ async function getDetails(get) {
 const notify = (message) => toast(message);
 
 function App() {
-    let navigate = useNavigate();
+    
+
     const [username,setUsername] = useState();
     const [email,setEmail] = useState();
     const [gender,setGender] = useState();
@@ -33,8 +34,7 @@ function App() {
     const [age,setAge] = useState();
 
 	const { token , setToken } = useToken();
-
-    
+    let navigate = useNavigate();
 	if(!token) {
 		navigate("/login",{replace:true});
 	}

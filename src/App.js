@@ -8,6 +8,8 @@ import useToken from './useToken.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+// This function is used to get Details of user from API
 async function getDetails(get) {
  return fetch('https://mysterious-harbor-20936.herokuapp.com/api/get-user', {
    method: 'POST',
@@ -23,7 +25,7 @@ const notify = (message) => toast(message);
 
 function App() {
     
-
+    // Setting up all the states
     const [username,setUsername] = useState();
     const [email,setEmail] = useState();
     const [gender,setGender] = useState();
@@ -55,6 +57,8 @@ function App() {
         .catch(err => {console.log(err)});
         
     }
+
+    // Setting up static link, Reason : states dont get update with fetch API ( Uncontrolled Component(functional) Error)
     const link = "edit/?gender="+gender+"&contact="+contact+"&dob="+dob+"&blood="+blood+"&age="+age+"&address="+address;
   return (
   	<div id="parent">

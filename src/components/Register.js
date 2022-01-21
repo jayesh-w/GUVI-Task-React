@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import useToken from '../useToken.js';
 import {Navigate} from 'react-router-dom';
 
+
+// Function to Register API
 async function registerUser(credentials) {
  return fetch('https://mysterious-harbor-20936.herokuapp.com/api/register', {
    method: 'POST',

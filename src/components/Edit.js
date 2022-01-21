@@ -9,6 +9,7 @@ import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
 
+// PUT METHOD TO SERVER
 async function updateUser(data_request) {
     return fetch('https://mysterious-harbor-20936.herokuapp.com/api/update-user', {
    method: 'PUT',
@@ -35,21 +36,6 @@ const notify = (message) => toast(message);
 
 
 
-
-        // const get = {token : JSON.parse(main_token)};
-        // getDetails(get)
-        // .then((data) => {
-        //         // initialEntry.blood = data.details.blood;
-        //         // initialEntry.dob = data.details.dob;
-        //         // initialEntry.address = data.details.address;
-        //         // initialEntry.gender = data.details.gender;
-        //         // initialEntry.contact = data.details.contact;
-        //         // initialEntry.age = data.details.age;
-        // })
-        // .catch(err => {console.log(err)});
-        
-
-
 function Edit() {
 
     const search = window.location.search;
@@ -62,7 +48,7 @@ function Edit() {
     const age = params.get('age');
     const address = params.get('address');
 
-
+    // Using indirect method to Update the state Reason: Uncontrolled Component Error
     let navigate = useNavigate();
     const nullEntry = {
         blood:blood,
@@ -82,7 +68,7 @@ function Edit() {
     
 
   
-
+    // This function submits the data 
     const handleSubmit = async e => {
         e.preventDefault();
         const response = await updateUser({
@@ -97,7 +83,7 @@ function Edit() {
         });
         if(response.success) {
             navigate("/",{replace:true})
-            
+
         }
         else {
             notify(response.message)
